@@ -1,6 +1,10 @@
 name: Generate and Send Stock Report
 
 on:
+  workflow_dispatch:  # 添加这一行
+  push:
+    branches:
+      - main
   schedule:
     - cron: '0 21 * * 1-5'  # 美东时间21:00执行（北京时间凌晨5点）
 

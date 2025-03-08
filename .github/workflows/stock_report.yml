@@ -1,0 +1,26 @@
+name: Generate and Send Stock Report
+
+on:
+  schedule:
+    - cron: '0 21 * * 1-5'  # 美东时间21:00执行（北京时间凌晨5点）
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v3
+        with:
+          python-version: '3.9'
+
+      - name: Install dependencies
+        run: pip install requests
+
+      - name: Run script
+        env:
+          EMAIL_USER: ${{ secrets.EMAIL_USER }}
+          EMAIL_PASS: ${{ secrets.EMAIL_PASS }}
+        run: python stock_report.py
